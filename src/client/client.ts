@@ -1,6 +1,5 @@
 import { ThirdPersonPerspective } from './perspectives/thirdperson/third-person.perspective'
-import { DesignerPerspective } from './perspectives/designer/designer.perspective'
-import { TestScene } from './scenes/test.scene'
+// import { DesignerPerspective } from './perspectives/designer/designer.perspective'
 
 enum PerspectiveType {
     DESIGNER = 'designer',
@@ -19,11 +18,18 @@ const options = {
 }
 
 
-let perspective: DesignerPerspective | ThirdPersonPerspective;
-perspective = options.perspective == PerspectiveType.DESIGNER ? new DesignerPerspective() : new ThirdPersonPerspective();
+let perspective: /*DesignerPerspective |*/ ThirdPersonPerspective;
+perspective = new ThirdPersonPerspective();
+perspective.run();
 
-const scene = new TestScene();
-scene.animate();
+// perspective = options.perspective == PerspectiveType.DESIGNER ? new DesignerPerspective() : new ThirdPersonPerspective();
+// perspective = new ThirdPersonPerspective();
+// const scene = new TestScene();
+// perspective.setScene(scene);
+// perspective.run();
+
+
+// scene.animate();
 
 
 // import * as THREE from 'three'
