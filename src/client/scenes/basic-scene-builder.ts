@@ -22,6 +22,7 @@ export class BasicSceneBuilder {
         const cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff7777});
         const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
         const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.name = 'MyCube';
         scene.add(cube);
 
 

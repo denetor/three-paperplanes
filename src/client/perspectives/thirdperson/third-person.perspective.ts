@@ -7,7 +7,7 @@ export class ThirdPersonPerspective {
     canvas: HTMLCanvasElement | null = null;
     scene: Scene | null = null;
     camera: THREE.Camera;
-    // controls: OrbitControls | null = null;
+    controls: OrbitControls | null = null;
     renderer: THREE.WebGLRenderer | null = null;
 
     constructor() {
@@ -18,7 +18,7 @@ export class ThirdPersonPerspective {
 
         if (this.canvas) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
-            // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
             this.scene = BasicSceneBuilder.build();
         }
     }
@@ -26,7 +26,13 @@ export class ThirdPersonPerspective {
 
     public run() {
         requestAnimationFrame(this.run.bind(this));
-        this.scene?.getObjectById(1);
+        const cube = this.scene?.getObjectByName('MyCube');
+        if (cube) {
+            cube.rotation.x += 0.01;
+        }
+        if (this.controls) {
+            this.controls.update();
+        }
         this.render();
     }
 
