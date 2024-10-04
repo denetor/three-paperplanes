@@ -2,13 +2,25 @@ import { ThirdPersonPerspective } from './perspectives/thirdperson/third-person.
 import { DesignerPerspective } from './perspectives/designer/designer.perspective'
 import { TestScene } from './scenes/test.scene'
 
+enum PerspectiveType {
+    DESIGNER = 'designer',
+    THIRD_PERSON = 'third-person',
+}
+
+enum RenderQuality {
+    LOW,
+    MEDIUM,
+    HIGH,
+}
+
 const options = {
-    perspective: 'third-person', // third-person, designer
+    perspective: PerspectiveType.THIRD_PERSON,
+    quality: RenderQuality.HIGH,
 }
 
 
 let perspective: DesignerPerspective | ThirdPersonPerspective;
-perspective = options.perspective === 'designer' ? new DesignerPerspective() : new ThirdPersonPerspective();
+perspective = options.perspective == PerspectiveType.DESIGNER ? new DesignerPerspective() : new ThirdPersonPerspective();
 
 const scene = new TestScene();
 scene.animate();

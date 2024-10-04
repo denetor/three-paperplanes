@@ -7,6 +7,8 @@ export class TestScene {
     renderer: THREE.WebGLRenderer;
     camera: THREE.Camera;
 
+    ambient: THREE.AmbientLight;
+    light: THREE.DirectionalLight;
     cube: THREE.Mesh;
 
     constructor() {
@@ -16,7 +18,16 @@ export class TestScene {
         this.camera.position.z = 4
         this.scene = new THREE.Scene();
 
-        const cubeMaterial = new THREE.MeshBasicMaterial({color: 0xff7777});
+        // lights
+        this.ambient = new THREE.AmbientLight(0xffffff, 0.2);
+        this.scene.add(this.ambient);
+        this.light = new THREE.DirectionalLight(0xffffff, 1);
+        this.light.position.set(-10, 10, 10);
+        this.light.target.position.set(0, 0, 0);
+        this.scene.add(this.light);
+
+        // objects
+        const cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff7777});
         const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
         this.cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         this.scene.add(this.cube);
