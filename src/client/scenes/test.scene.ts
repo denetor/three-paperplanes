@@ -1,14 +1,18 @@
 import * as THREE from 'three'
+import { AxisActor } from '../actors/axis.actor'
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 export class TestScene {
+    // basic elements
     scene: THREE.Scene;
     canvas: HTMLCanvasElement;
     renderer: THREE.WebGLRenderer;
     camera: THREE.Camera;
-
+    // light
     ambient: THREE.AmbientLight;
     light: THREE.DirectionalLight;
+    // scene content
+    axis: AxisActor;
     cube: THREE.Mesh;
 
     constructor() {
@@ -25,6 +29,10 @@ export class TestScene {
         this.light.position.set(-10, 10, 10);
         this.light.target.position.set(0, 0, 0);
         this.scene.add(this.light);
+
+        // axis
+        this.axis = new AxisActor();
+        this.scene.add(this.axis.get());
 
         // objects
         const cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff7777});
