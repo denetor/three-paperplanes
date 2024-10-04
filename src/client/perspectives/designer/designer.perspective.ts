@@ -1,3 +1,8 @@
+import * as THREE from 'three'
+import { Scene } from 'three'
+import { BasicSceneBuilder } from '../../scenes/basic-scene-builder'
+
+
 // import { TestScene } from '../../scenes/test.scene'
 //
 // export class DesignerPerspective {
