@@ -1,6 +1,13 @@
 import { ThirdPersonPerspective } from './perspectives/thirdperson/third-person.perspective'
+import { DesignerPerspective } from './perspectives/designer/designer.perspective'
 
-const perspective = new ThirdPersonPerspective();
+const options = {
+    perspective: 'designer', // third-person, designer
+}
+
+
+let perspective: DesignerPerspective | ThirdPersonPerspective;
+perspective = options.perspective === 'designer' ? new DesignerPerspective() : new ThirdPersonPerspective();
 
 
 // import * as THREE from 'three'
