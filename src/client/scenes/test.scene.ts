@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { AxisActor } from '../actors/axis.actor'
-// import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 export class TestScene {
     // basic elements
@@ -8,6 +8,7 @@ export class TestScene {
     canvas: HTMLCanvasElement;
     renderer: THREE.WebGLRenderer;
     camera: THREE.Camera;
+    controls: OrbitControls;
     // light
     ambient: THREE.AmbientLight;
     light: THREE.DirectionalLight;
@@ -21,6 +22,7 @@ export class TestScene {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
         this.camera.position.z = 4
         this.scene = new THREE.Scene();
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         // lights
         this.ambient = new THREE.AmbientLight(0xffffff, 0.2);
@@ -48,6 +50,7 @@ export class TestScene {
         requestAnimationFrame(this.animate.bind(this));
         this.cube.rotation.x += 0.01;
         this.cube.rotation.y += 0.01;
+        this.controls.update();
         this.render();
     }
 
