@@ -5,6 +5,7 @@ import { FlatTerrainStripActor } from '../actors/flat-terrain-strip.actor'
 import { HillActor } from '../actors/hill.actor'
 import { BuildingActor } from '../actors/building.actor'
 import { PaperPlaneActor } from '../actors/paperplane.actor'
+import { TreeActor } from '../actors/tree.actor'
 
 
 export class FlightPathBuilder {
@@ -48,6 +49,18 @@ export class FlightPathBuilder {
                 -1 * (radius + Math.random() * (TERRAIN_LENGTH - radius)));
             scene.add(hill);
         }
+
+
+        // trees
+        for (let i = 0; i < 10; i++) {
+            const tree = await new TreeActor().get();
+            tree.position.set(
+                - TERRAIN_WIDTH / 2 + Math.random() * TERRAIN_WIDTH,
+                0,
+                -1 * (Math.random() * TERRAIN_LENGTH));
+            scene.add(tree);
+        }
+
 
         // buildings
         for (let i = 0; i < 30; i++) {
