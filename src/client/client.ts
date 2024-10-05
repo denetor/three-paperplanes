@@ -1,5 +1,4 @@
-import { ThirdPersonPerspective } from './perspectives/thirdperson/third-person.perspective'
-// import { DesignerPerspective } from './perspectives/designer/designer.perspective'
+import { FirstFlyStage } from './stages/first-fly.stage'
 
 enum PerspectiveType {
     DESIGNER = 'designer',
@@ -13,13 +12,10 @@ enum RenderQuality {
 }
 
 const options = {
-    perspective: PerspectiveType.THIRD_PERSON,
+    perspective: PerspectiveType.DESIGNER,
     quality: RenderQuality.HIGH,
 }
 
 
-let perspective: /*DesignerPerspective |*/ ThirdPersonPerspective;
-perspective = options.perspective == PerspectiveType.THIRD_PERSON ? new ThirdPersonPerspective() : null;
-if (perspective) {
-    perspective.run();
-}
+let stage: FirstFlyStage = new FirstFlyStage();
+stage.run();
