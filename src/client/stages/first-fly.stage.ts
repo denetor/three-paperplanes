@@ -15,9 +15,9 @@ export class FirstFlyStage {
     constructor() {
         this.appendDomElements();
 
-        this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+        this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.set(25, 50, 50);
-        this.camera.lookAt(0,0,500);
+        this.camera.lookAt(0, 0, 500);
 
         if (this.canvas) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
@@ -29,10 +29,10 @@ export class FirstFlyStage {
 
     public run() {
         requestAnimationFrame(this.run.bind(this));
-        const cube = this.scene?.getObjectByName('MyCube');
-        if (cube) {
-            cube.rotation.x += 0.01;
-        }
+        // const cube = this.scene?.getObjectByName('MyCube');
+        // if (cube) {
+        //     cube.rotation.x += 0.01;
+        // }
         if (this.controls) {
             this.controls.update();
         }

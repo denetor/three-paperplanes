@@ -2,6 +2,8 @@ import { Scene } from 'three'
 import * as THREE from 'three'
 import { AxisActor } from '../actors/axis.actor'
 import { FlatTerrainStripActor } from '../actors/flat-terrain-strip.actor'
+import { HillActor } from '../actors/hill.actor'
+import { BuildingActor } from '../actors/building.actor'
 
 export class FlightPathBuilder {
     static build(): Scene {
@@ -25,8 +27,28 @@ export class FlightPathBuilder {
         scene.add(terrain);
 
         // hills
+        for (let i = 0; i < 10; i++) {
+            const radius = 10 + Math.random() * 10;
+            const height = 5 + Math.random() * 5;
+            const hill = new HillActor(radius, height).get();
+            hill.position.set(
+                -50 + radius + Math.random() * (100 - radius - radius),
+                height / 2,
+                -1 * (radius + Math.random() * (1000 - radius)));
+            scene.add(hill);
+        }
 
         // buildings
+        for (let i = 0; i < 30; i++) {
+            const width = 10 + Math.random() * 10;
+            const height = 10 + Math.random() * 50;
+            const bulding = new BuildingActor(width, height).get();
+            bulding.position.set(
+                -50 + width/2 + Math.random() * (100 - width),
+                height / 2,
+                -1 * (width + Math.random() * (1000 - width)));
+            scene.add(bulding);
+        }
 
         // paperplane
 
