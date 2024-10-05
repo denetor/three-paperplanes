@@ -18,4 +18,8 @@ const options = {
 
 
 let stage: FirstFlyStage = new FirstFlyStage();
-stage.run();
+stage.init().then(
+    () => {
+        stage.run();
+    }
+);

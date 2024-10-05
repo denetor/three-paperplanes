@@ -7,14 +7,17 @@ import { FlightPathBuilder } from '../scenes/flight-path-builder'
 export class FirstFlyStage {
     canvas: HTMLCanvasElement | null = null;
     scene: Scene | null = null;
-    camera: THREE.Camera;
+    camera: THREE.Camera | null = null;
     controls: OrbitControls | null = null;
     renderer: THREE.WebGLRenderer | null = null;
 
 
     constructor() {
         this.appendDomElements();
+    }
 
+
+    public async init(): Promise<any> {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.set(25, 50, 50);
         this.camera.lookAt(0, 0, 500);
@@ -22,7 +25,7 @@ export class FirstFlyStage {
         if (this.canvas) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
             this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-            this.scene = FlightPathBuilder.build();
+            this.scene = await FlightPathBuilder.build();
         }
     }
 
@@ -41,7 +44,7 @@ export class FirstFlyStage {
 
 
     public render() {
-        if (this.renderer && this.scene) {
+        if (this.renderer && this.scene && this.camera) {
             this.renderer.render(this.scene, this.camera);
         }
     }

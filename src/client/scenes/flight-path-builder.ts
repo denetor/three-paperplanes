@@ -4,11 +4,13 @@ import { AxisActor } from '../actors/axis.actor'
 import { FlatTerrainStripActor } from '../actors/flat-terrain-strip.actor'
 import { HillActor } from '../actors/hill.actor'
 import { BuildingActor } from '../actors/building.actor'
+import { PaperPlaneActor } from '../actors/paperplane.actor'
+
 
 export class FlightPathBuilder {
 
 
-    static build(): Scene {
+    static async build(): Promise<Scene> {
         const TERRAIN_LENGTH = 1000;
         const TERRAIN_WIDTH = 100;
         const MIN_HILL_RADIUS = 20;
@@ -59,6 +61,9 @@ export class FlightPathBuilder {
         }
 
         // paperplane
+        const paperplane = await new PaperPlaneActor().get();
+        paperplane.position.set(0, 20, 0);
+        scene.add(paperplane);
 
         return scene;
     }
