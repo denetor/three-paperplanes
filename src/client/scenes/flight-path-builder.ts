@@ -6,7 +6,15 @@ import { HillActor } from '../actors/hill.actor'
 import { BuildingActor } from '../actors/building.actor'
 
 export class FlightPathBuilder {
+
+
     static build(): Scene {
+        const TERRAIN_LENGTH = 1000;
+        const TERRAIN_WIDTH = 100;
+        const MIN_HILL_RADIUS = 20;
+        const MAX_HILL_RADIUS = 40;
+        const MIN_HILL_HEIGHT = 5;
+        const MAX_HILL_HEIGHT = 20;
         const scene = new THREE.Scene();
 
         // lights
@@ -22,31 +30,31 @@ export class FlightPathBuilder {
         scene.add(axis.get());
 
         // terrain
-        const terrain = new FlatTerrainStripActor(100, 1000).get();
-        terrain.position.set(0, 0, -500);
+        const terrain = new FlatTerrainStripActor(TERRAIN_WIDTH, TERRAIN_LENGTH).get();
+        terrain.position.set(0, 0, TERRAIN_LENGTH / -2);
         scene.add(terrain);
 
         // hills
         for (let i = 0; i < 10; i++) {
-            const radius = 10 + Math.random() * 10;
-            const height = 5 + Math.random() * 5;
+            const radius = MIN_HILL_RADIUS + Math.random() * (MAX_HILL_RADIUS - MIN_HILL_RADIUS);
+            const height = MIN_HILL_HEIGHT + Math.random() * (MAX_HILL_HEIGHT - MIN_HILL_HEIGHT);
             const hill = new HillActor(radius, height).get();
             hill.position.set(
-                -50 + radius + Math.random() * (100 - radius - radius),
+                - TERRAIN_WIDTH / 2 + radius + Math.random() * (TERRAIN_WIDTH - radius - radius),
                 height / 2,
-                -1 * (radius + Math.random() * (1000 - radius)));
+                -1 * (radius + Math.random() * (TERRAIN_LENGTH - radius)));
             scene.add(hill);
         }
 
         // buildings
         for (let i = 0; i < 30; i++) {
             const width = 10 + Math.random() * 10;
-            const height = 10 + Math.random() * 50;
+            const height = 10 + Math.random() * TERRAIN_WIDTH / 2;
             const bulding = new BuildingActor(width, height).get();
             bulding.position.set(
-                -50 + width/2 + Math.random() * (100 - width),
+                - TERRAIN_WIDTH / 2 + width/2 + Math.random() * (TERRAIN_WIDTH - width),
                 height / 2,
-                -1 * (width + Math.random() * (1000 - width)));
+                -1 * (width + Math.random() * (TERRAIN_LENGTH - width)));
             scene.add(bulding);
         }
 
