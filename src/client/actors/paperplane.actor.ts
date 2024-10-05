@@ -11,6 +11,7 @@ export class PaperPlaneActor {
 
         const group = new THREE.Group();
         group.add(gltf.scene);
+        group.name = 'plane';
 
         return group;
     }

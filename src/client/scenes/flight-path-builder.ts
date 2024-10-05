@@ -18,6 +18,7 @@ export class FlightPathBuilder {
         const MIN_HILL_HEIGHT = 5;
         const MAX_HILL_HEIGHT = 20;
         const scene = new THREE.Scene();
+        let planePosition = new THREE.Vector3(0, 20, 0);
 
         // lights
         const ambient = new THREE.AmbientLight(0xffffff, 0.2);
@@ -62,7 +63,7 @@ export class FlightPathBuilder {
 
         // paperplane
         const paperplane = await new PaperPlaneActor().get();
-        paperplane.position.set(0, 20, 0);
+        paperplane.position.set(planePosition.x, planePosition.y, planePosition.z);
         scene.add(paperplane);
 
         return scene;

@@ -8,7 +8,7 @@ export class FirstFlyStage {
     canvas: HTMLCanvasElement | null = null;
     scene: Scene | null = null;
     camera: THREE.Camera | null = null;
-    controls: OrbitControls | null = null;
+    // controls: OrbitControls | null = null;
     renderer: THREE.WebGLRenderer | null = null;
 
 
@@ -20,11 +20,10 @@ export class FirstFlyStage {
     public async init(): Promise<any> {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.set(25, 50, 50);
-        this.camera.lookAt(0, 0, 500);
 
         if (this.canvas) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
-            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
             this.scene = await FlightPathBuilder.build();
         }
     }
@@ -32,13 +31,15 @@ export class FirstFlyStage {
 
     public run() {
         requestAnimationFrame(this.run.bind(this));
-        // const cube = this.scene?.getObjectByName('MyCube');
-        // if (cube) {
-        //     cube.rotation.x += 0.01;
-        // }
-        if (this.controls) {
-            this.controls.update();
+        const player = this.scene?.getObjectByName('plane');
+        if (player && this.camera) {
+            player.position.z -= 0.1;
+            this.camera.position.z -= 0.1;
+            this.camera.lookAt(player.position);
         }
+        // if (this.controls) {
+        //     this.controls.update();
+        // }
         this.render();
     }
 
