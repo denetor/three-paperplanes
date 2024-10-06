@@ -1,16 +1,16 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import * as THREE from 'three'
+import { Resources } from '../resources'
 
 export class PaperPlaneActor {
 
-    async get() {
-        const loader = new GLTFLoader();
-        const gltf = await loader.loadAsync('/assets/paper_airplane_0.glb');
-        gltf.scene.rotateY(Math.PI);
-        gltf.scene.scale.set(40, 40, 40);
+    async get(resources: Resources) {
+        const mesh = new THREE.Mesh(resources.paperplane.geometry, resources.paperplane.material);
+        // mesh.rotateY(Math.PI);
+        // mesh.scale.set(20, 20, 20);
 
         const group = new THREE.Group();
-        group.add(gltf.scene);
+        group.add(mesh);
         group.name = 'plane';
 
         return group;

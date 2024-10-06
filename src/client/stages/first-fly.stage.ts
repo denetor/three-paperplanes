@@ -8,7 +8,7 @@ export class FirstFlyStage {
     canvas: HTMLCanvasElement | null = null;
     scene: Scene | null = null;
     camera: THREE.Camera | null = null;
-    // controls: OrbitControls | null = null;
+    controls: OrbitControls | null = null;
     renderer: THREE.WebGLRenderer | null = null;
 
 

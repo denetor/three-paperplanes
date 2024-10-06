@@ -6,6 +6,7 @@ import { HillActor } from '../actors/hill.actor'
 import { BuildingActor } from '../actors/building.actor'
 import { PaperPlaneActor } from '../actors/paperplane.actor'
 import { TreeActor } from '../actors/tree.actor'
+import { Resources } from '../resources'
 
 
 export class FlightPathBuilder {
@@ -20,6 +21,9 @@ export class FlightPathBuilder {
         const MAX_HILL_HEIGHT = 20;
         const scene = new THREE.Scene();
         let planePosition = new THREE.Vector3(0, 20, 0);
+
+        const resources = new Resources();
+        await resources.load();
 
         // lights
         const ambient = new THREE.AmbientLight(0xffffff, 0.2);
@@ -52,14 +56,15 @@ export class FlightPathBuilder {
 
 
         // trees
-        for (let i = 0; i < 10; i++) {
-            const tree = await new TreeActor().get();
+        for (let i = 0; i < 100; i++) {
+            const tree = await new TreeActor().get(resources);
             tree.position.set(
                 - TERRAIN_WIDTH / 2 + Math.random() * TERRAIN_WIDTH,
                 0,
                 -1 * (Math.random() * TERRAIN_LENGTH));
             scene.add(tree);
         }
+
 
 
         // buildings
@@ -75,7 +80,7 @@ export class FlightPathBuilder {
         }
 
         // paperplane
-        const paperplane = await new PaperPlaneActor().get();
+        const paperplane = await new PaperPlaneActor().get(resources);
         paperplane.position.set(planePosition.x, planePosition.y, planePosition.z);
         scene.add(paperplane);
 
