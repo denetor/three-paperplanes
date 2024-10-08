@@ -1,8 +1,8 @@
 import { Scene } from 'three'
 import * as THREE from 'three'
-import { BasicSceneBuilder } from '../scenes/basic-scene-builder'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { FlightPathBuilder } from '../scenes/flight-path-builder'
+import { PaperplanePhysics } from '../physics/paperplane.physics'
 
 export class FirstFlyStage {
     canvas: HTMLCanvasElement | null = null;
@@ -10,21 +10,31 @@ export class FirstFlyStage {
     camera: THREE.Camera | null = null;
     controls: OrbitControls | null = null;
     renderer: THREE.WebGLRenderer | null = null;
+    paperplanePhysics: PaperplanePhysics;
 
 
     constructor() {
         this.appendDomElements();
+        this.paperplanePhysics = new PaperplanePhysics();
     }
 
 
     public async init(): Promise<any> {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.set(25, 50, 50);
+        this.camera.lookAt(0, 0, 0);
 
         if (this.canvas) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
             // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
             this.scene = await FlightPathBuilder.build();
+        }
+
+        if (this.scene) {
+            const playerMesh = this.scene?.getObjectByName('plane');
+            if (playerMesh) {
+                this.paperplanePhysics.position = playerMesh.position;
+            }
         }
     }
 
@@ -32,11 +42,13 @@ export class FirstFlyStage {
     public run() {
         requestAnimationFrame(this.run.bind(this));
         const player = this.scene?.getObjectByName('plane');
-        if (player && this.camera) {
-            player.position.z -= 0.1;
-            this.camera.position.z -= 0.1;
-            this.camera.lookAt(player.position);
-        }
+
+        // if (player && this.camera) {
+        //     player.position.z -= 0.1;
+        //     this.camera.position.z -= 0.1;
+        //     this.camera.lookAt(player.position);
+        // }
+
         // if (this.controls) {
         //     this.controls.update();
         // }

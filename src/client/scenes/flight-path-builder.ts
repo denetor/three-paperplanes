@@ -40,6 +40,7 @@ export class FlightPathBuilder {
         // terrain
         const terrain = new FlatTerrainStripActor(TERRAIN_WIDTH, TERRAIN_LENGTH).get();
         terrain.position.set(0, 0, TERRAIN_LENGTH / -2);
+        terrain.userData.physics = {mass: 0};
         scene.add(terrain);
 
         // hills
@@ -82,6 +83,7 @@ export class FlightPathBuilder {
         // paperplane
         const paperplane = await new PaperPlaneActor().get(resources);
         paperplane.position.set(planePosition.x, planePosition.y, planePosition.z);
+        paperplane.userData.physics = { mass: 1 };
         scene.add(paperplane);
 
         return scene;
