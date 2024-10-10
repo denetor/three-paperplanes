@@ -6,6 +6,6 @@ export class PaperplanePhysics extends BaseObjectPhysics {
 
     constructor() {
         super();
-        this.rotation = new Vector3(0, 0, 0);
+        this.rotation = new Vector3(0.0, 0.0, 0.0);
     }
 }

@@ -20,6 +20,6 @@ const options = {
 let stage: FirstFlyStage = new FirstFlyStage();
 stage.init().then(
     () => {
-        stage.run();
+        stage.run(0);
     }
 );
